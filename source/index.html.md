@@ -29,14 +29,14 @@ require 'httparty'
 
 api_secret = 'YOUR_API_SECRET'
 
-response = HTTParty.get('https://api.signalzen.com/public/users', headers: { 'Authorization' => "Bearer #{api_secret}", 'Accept' => 'application/vnd.signalzen.v1+json' })
+response = HTTParty.get('https://api.signalzen.com/external/users', headers: { 'Authorization' => "Bearer #{api_secret}", 'Accept' => 'application/vnd.signalzen.v1+json' })
 
 result = JSON.parse(response.body)
 ```
 
 ```shell
 # With shell, you can just pass the correct headers with each request
-curl "https://api.signalzen.com/public/users" \
+curl "https://api.signalzen.com/external/users" \
   -H "Authorization: Bearer YOUR_API_SECRET" \
   -H "Accept: application/vnd.signalzen.v1+json"
 ```
@@ -68,13 +68,13 @@ require 'httparty'
 
 api_secret = 'YOUR_API_SECRET'
 
-response = HTTParty.get('https://api.signalzen.com/public/users', headers: { 'Authorization' => "Bearer #{api_secret}", 'Accept' => 'application/vnd.signalzen.v1+json' })
+response = HTTParty.get('https://api.signalzen.com/external/users', headers: { 'Authorization' => "Bearer #{api_secret}", 'Accept' => 'application/vnd.signalzen.v1+json' })
 
 result = JSON.parse(response.body)
 ```
 
 ```shell
-curl "https://api.signalzen.com/public/users" \
+curl "https://api.signalzen.com/external/users" \
   -H "Authorization: Bearer YOUR_API_SECRET" \
   -H "Accept: application/vnd.signalzen.v1+json"
 ```
@@ -108,7 +108,7 @@ This endpoint retrieves users.
 
 ### HTTP Request
 
-`GET https://api.signalzen.com/public/users`
+`GET https://api.signalzen.com/external/users`
 
 ### Query Parameters
 
@@ -129,13 +129,13 @@ require 'httparty'
 api_secret = 'YOUR_API_SECRET'
 user_id = 123
 
-response = HTTParty.get("https://api.signalzen.com/public/users/#{user_id}", headers: { 'Authorization' => "Bearer #{api_secret}", 'Accept' => 'application/vnd.signalzen.v1+json' })
+response = HTTParty.get("https://api.signalzen.com/external/users/#{user_id}", headers: { 'Authorization' => "Bearer #{api_secret}", 'Accept' => 'application/vnd.signalzen.v1+json' })
 
 result = JSON.parse(response.body)
 ```
 
 ```shell
-curl "https://api.signalzen.com/public/users/123" \
+curl "https://api.signalzen.com/external/users/123" \
   -H "Authorization: Bearer YOUR_API_SECRET" \
   -H "Accept: application/vnd.signalzen.v1+json"
 ```
@@ -162,7 +162,7 @@ This endpoint retrieves a specific user.
 
 ### HTTP Request
 
-`GET https://api.signalzen.com/public/users/<ID>`
+`GET https://api.signalzen.com/external/users/<ID>`
 
 ### URL Parameters
 
@@ -180,13 +180,13 @@ require 'httparty'
 api_secret = 'YOUR_API_SECRET'
 user_id = 123
 
-response = HTTParty.get("https://api.signalzen.com/public/users/#{user_id}/messages", headers: { 'Authorization' => "Bearer #{api_secret}", 'Accept' => 'application/vnd.signalzen.v1+json' })
+response = HTTParty.get("https://api.signalzen.com/external/users/#{user_id}/messages", headers: { 'Authorization' => "Bearer #{api_secret}", 'Accept' => 'application/vnd.signalzen.v1+json' })
 
 result = JSON.parse(response.body)
 ```
 
 ```shell
-curl "https://api.signalzen.com/public/users/123/messages" \
+curl "https://api.signalzen.com/external/users/123/messages" \
   -H "Authorization: Bearer YOUR_API_SECRET" \
   -H "Accept: application/vnd.signalzen.v1+json"
 ```
@@ -239,7 +239,7 @@ This endpoint retrieves messages of a user chat.
 
 ### HTTP Request
 
-`GET https://api.signalzen.com/public/users/<USER_ID>/messages`
+`GET https://api.signalzen.com/external/users/<USER_ID>/messages`
 
 ### Query Parameters
 
@@ -262,13 +262,13 @@ api_secret = 'YOUR_API_SECRET'
 user_id = 123
 message_id = 1234
 
-response = HTTParty.get("https://api.signalzen.com/public/users/#{user_id}/messages/#{message_id}", headers: { 'Authorization' => "Bearer #{api_secret}", 'Accept' => 'application/vnd.signalzen.v1+json' })
+response = HTTParty.get("https://api.signalzen.com/external/users/#{user_id}/messages/#{message_id}", headers: { 'Authorization' => "Bearer #{api_secret}", 'Accept' => 'application/vnd.signalzen.v1+json' })
 
 result = JSON.parse(response.body)
 ```
 
 ```shell
-curl "https://api.signalzen.com/public/users/123/messages/1234" \
+curl "https://api.signalzen.com/external/users/123/messages/1234" \
   -H "Authorization: Bearer YOUR_API_SECRET" \
   -H "Accept: application/vnd.signalzen.v1+json"
 ```
@@ -297,7 +297,7 @@ This endpoint retrieves a specific message of a user chat.
 
 ### HTTP Request
 
-`GET https://api.signalzen.com/public/users/<USER_ID>/messages/<ID>`
+`GET https://api.signalzen.com/external/users/<USER_ID>/messages/<ID>`
 
 ### URL Parameters
 
