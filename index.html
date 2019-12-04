@@ -225,6 +225,29 @@
             <a href="#introduction" class="toc-h1 toc-link" data-title="introduction">Introduction</a>
           </li>
           <li>
+            <a href="#js-api" class="toc-h1 toc-link" data-title="js-api">JS API</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#language" class="toc-h2 toc-link" data-title="language">Language</a>
+                  </li>
+                  <li>
+                    <a href="#metadata-about-a-visitor" class="toc-h2 toc-link" data-title="metadata-about-a-visitor">Metadata about a visitor</a>
+                  </li>
+                  <li>
+                    <a href="#widget-colors" class="toc-h2 toc-link" data-title="widget-colors">Widget colors</a>
+                  </li>
+                  <li>
+                    <a href="#invisibility" class="toc-h2 toc-link" data-title="invisibility">Invisibility</a>
+                  </li>
+                  <li>
+                    <a href="#expand-and-suspend" class="toc-h2 toc-link" data-title="expand-and-suspend">Expand and Suspend</a>
+                  </li>
+                  <li>
+                    <a href="#events" class="toc-h2 toc-link" data-title="events">Events</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
             <a href="#authentication" class="toc-h1 toc-link" data-title="authentication">Authentication</a>
           </li>
           <li>
@@ -261,9 +284,101 @@
       <div class="dark-box"></div>
       <div class="content">
         <h1 id='introduction'>Introduction</h1>
-<p>Welcome to the SignalZen API! You can use our API to access SignalZen API endpoints, which can get read-only information about your widget users and messages. This is a version number 1 of the API, later we will add more endpoints to make your API experience wider.</p>
+<p>Welcome to the SignalZen API! You can use our Frontend (JavaScript) API to do advanced integration on your website or use backend API to access SignalZen API endpoints, which can get read-only information about your widget users and messages. This page includes a version number 1 Frontend (JavaScript) API and a version number 1 of the Backend API, later we will add more endpoints to make your API experience wider.</p>
 
-<p>We have language bindings in Shell and Ruby! You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.</p>
+<p>You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.</p>
+<h1 id='js-api'>JS API</h1><pre class="highlight javascript tab-javascript"><code><span class="o">&lt;</span><span class="nx">script</span> <span class="nx">type</span><span class="o">=</span><span class="s2">"text/javascript"</span><span class="o">&gt;</span>
+<span class="kd">var</span> <span class="nx">_sz</span><span class="o">=</span><span class="nx">_sz</span><span class="o">||</span><span class="p">{};</span><span class="nx">_sz</span><span class="p">.</span><span class="nx">appId</span><span class="o">=</span><span class="s2">"YOUR_APP_ID"</span><span class="p">,</span><span class="kd">function</span><span class="p">(){</span><span class="kd">var</span> <span class="nx">e</span><span class="o">=</span><span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s2">"script"</span><span class="p">);</span><span class="nx">e</span><span class="p">.</span><span class="nx">src</span><span class="o">=</span><span class="s2">"https://cdn.signalzen.com/signalzen.js"</span><span class="p">,</span><span class="nx">e</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="s2">"async"</span><span class="p">,</span><span class="s2">"true"</span><span class="p">),</span><span class="nb">document</span><span class="p">.</span><span class="nx">documentElement</span><span class="p">.</span><span class="nx">firstChild</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">e</span><span class="p">);</span><span class="kd">var</span> <span class="nx">t</span><span class="o">=</span><span class="nx">setInterval</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span><span class="s2">"undefined"</span><span class="o">!=</span><span class="k">typeof</span> <span class="nx">SignalZen</span><span class="o">&amp;&amp;</span><span class="p">(</span><span class="nx">clearInterval</span><span class="p">(</span><span class="nx">t</span><span class="p">),</span><span class="k">new</span> <span class="nx">SignalZen</span><span class="p">(</span><span class="nx">_sz</span><span class="p">).</span><span class="nx">load</span><span class="p">())},</span><span class="mi">10</span><span class="p">)}();</span>
+<span class="o">&lt;</span><span class="sr">/script</span><span class="err">&gt;
+</span></code></pre>
+<p>As stated in the Integration page of your website inside the portal, you need to initialize our widget by a simple command which looks like on the right side of this page.</p>
+
+<p>However, there are more advanced options to initialize and work with the widget. We separated the concerns of working with the widget into a few sections (see below).</p>
+<h2 id='language'>Language</h2><pre class="highlight javascript tab-javascript"><code><span class="o">&lt;</span><span class="nx">script</span> <span class="nx">type</span><span class="o">=</span><span class="s2">"text/javascript"</span><span class="o">&gt;</span>
+<span class="kd">var</span> <span class="nx">_sz</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">language</span><span class="p">:</span> <span class="s1">'danish'</span>
+<span class="p">};</span>
+<span class="kd">var</span> <span class="nx">_sz</span><span class="o">=</span><span class="nx">_sz</span><span class="o">||</span><span class="p">{};</span><span class="nx">_sz</span><span class="p">.</span><span class="nx">appId</span><span class="o">=</span><span class="s2">"YOUR_APP_ID"</span><span class="p">,</span><span class="kd">function</span><span class="p">(){</span><span class="kd">var</span> <span class="nx">e</span><span class="o">=</span><span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s2">"script"</span><span class="p">);</span><span class="nx">e</span><span class="p">.</span><span class="nx">src</span><span class="o">=</span><span class="s2">"https://cdn.signalzen.com/signalzen.js"</span><span class="p">,</span><span class="nx">e</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="s2">"async"</span><span class="p">,</span><span class="s2">"true"</span><span class="p">),</span><span class="nb">document</span><span class="p">.</span><span class="nx">documentElement</span><span class="p">.</span><span class="nx">firstChild</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">e</span><span class="p">);</span><span class="kd">var</span> <span class="nx">t</span><span class="o">=</span><span class="nx">setInterval</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span><span class="s2">"undefined"</span><span class="o">!=</span><span class="k">typeof</span> <span class="nx">SignalZen</span><span class="o">&amp;&amp;</span><span class="p">(</span><span class="nx">clearInterval</span><span class="p">(</span><span class="nx">t</span><span class="p">),</span><span class="k">new</span> <span class="nx">SignalZen</span><span class="p">(</span><span class="nx">_sz</span><span class="p">).</span><span class="nx">load</span><span class="p">())},</span><span class="mi">10</span><span class="p">)}();</span>
+<span class="o">&lt;</span><span class="sr">/script</span><span class="err">&gt;
+</span></code></pre>
+<p>Usually by creating translations of the widget, we determine the language that the visitors see by their browser settings.
+There is an alternative way for this purpose, you can set the language by the integration code which takes precedence over the browser language. See the code example on the right how to do this.</p>
+<h2 id='metadata-about-a-visitor'>Metadata about a visitor</h2><pre class="highlight javascript tab-javascript"><code><span class="o">&lt;</span><span class="nx">script</span> <span class="nx">type</span><span class="o">=</span><span class="s2">"text/javascript"</span><span class="o">&gt;</span>
+<span class="kd">var</span> <span class="nx">_sz</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">userData</span><span class="p">:</span> <span class="p">{</span>
+    <span class="na">reference</span><span class="p">:</span> <span class="s2">"your-visitor-user-id"</span><span class="p">,</span>
+    <span class="na">email</span><span class="p">:</span> <span class="s1">'your-visitor@email.com'</span><span class="p">,</span>
+    <span class="na">name</span><span class="p">:</span> <span class="s1">'Your visitor name'</span><span class="p">,</span>
+    <span class="s1">'some custom attribute'</span><span class="p">:</span> <span class="s1">'your visitor custom attribute'</span>
+  <span class="p">}</span>
+<span class="p">};</span>
+<span class="kd">var</span> <span class="nx">_sz</span><span class="o">=</span><span class="nx">_sz</span><span class="o">||</span><span class="p">{};</span><span class="nx">_sz</span><span class="p">.</span><span class="nx">appId</span><span class="o">=</span><span class="s2">"YOUR_APP_ID"</span><span class="p">,</span><span class="kd">function</span><span class="p">(){</span><span class="kd">var</span> <span class="nx">e</span><span class="o">=</span><span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s2">"script"</span><span class="p">);</span><span class="nx">e</span><span class="p">.</span><span class="nx">src</span><span class="o">=</span><span class="s2">"https://cdn.signalzen.com/signalzen.js"</span><span class="p">,</span><span class="nx">e</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="s2">"async"</span><span class="p">,</span><span class="s2">"true"</span><span class="p">),</span><span class="nb">document</span><span class="p">.</span><span class="nx">documentElement</span><span class="p">.</span><span class="nx">firstChild</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">e</span><span class="p">);</span><span class="kd">var</span> <span class="nx">t</span><span class="o">=</span><span class="nx">setInterval</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span><span class="s2">"undefined"</span><span class="o">!=</span><span class="k">typeof</span> <span class="nx">SignalZen</span><span class="o">&amp;&amp;</span><span class="p">(</span><span class="nx">clearInterval</span><span class="p">(</span><span class="nx">t</span><span class="p">),</span><span class="k">new</span> <span class="nx">SignalZen</span><span class="p">(</span><span class="nx">_sz</span><span class="p">).</span><span class="nx">load</span><span class="p">())},</span><span class="mi">10</span><span class="p">)}();</span>
+<span class="o">&lt;</span><span class="sr">/script</span><span class="err">&gt;
+</span></code></pre>
+<p>Some websites have login area, where you have certain context which you want to be visible in a chat page in order to recognise the chat owner in more comfortable way. It&#39;s possible to set that data by JS configuration and send each time the chat owner sends a message. See the code example on the right how to do this.</p>
+<h2 id='widget-colors'>Widget colors</h2><pre class="highlight javascript tab-javascript"><code><span class="o">&lt;</span><span class="nx">script</span> <span class="nx">type</span><span class="o">=</span><span class="s2">"text/javascript"</span><span class="o">&gt;</span>
+<span class="kd">var</span> <span class="nx">_sz</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">colors</span><span class="p">:</span> <span class="p">{</span>
+    <span class="na">primary</span><span class="p">:</span> <span class="s1">'#046ee5'</span><span class="p">,</span>
+    <span class="na">secondary</span><span class="p">:</span> <span class="s1">'#f5f7f8'</span><span class="p">,</span>
+    <span class="na">footer</span><span class="p">:</span> <span class="s1">'#ffffff'</span><span class="p">,</span>
+    <span class="na">error</span><span class="p">:</span> <span class="s1">'#cccccc'</span><span class="p">,</span>
+    <span class="na">popup</span><span class="p">:</span> <span class="s1">'#ffffff'</span><span class="p">,</span>
+    <span class="na">popupClose</span><span class="p">:</span> <span class="s1">'#ffffff'</span><span class="p">,</span>
+    <span class="na">popupCloseSymbol</span><span class="p">:</span> <span class="s1">'#9c9c9c'</span><span class="p">,</span>
+    <span class="na">popupFormInputBorder</span><span class="p">:</span> <span class="s1">'#9c9c9c'</span><span class="p">,</span>
+    <span class="na">badge</span><span class="p">:</span> <span class="s1">'#c30606'</span><span class="p">,</span>
+    <span class="na">footerEmojisPopup</span><span class="p">:</span> <span class="s1">'#ffffff'</span><span class="p">,</span>
+    <span class="na">footerOptions</span><span class="p">:</span> <span class="s1">'#b2b3b4'</span><span class="p">,</span>
+    <span class="na">operatorMessages</span><span class="p">:</span> <span class="s1">'#ebeff0'</span><span class="p">,</span>
+    <span class="na">formInput</span><span class="p">:</span> <span class="s1">'#ffffff'</span><span class="p">,</span>
+    <span class="na">formInputBorder</span><span class="p">:</span> <span class="s1">'#ffffff'</span><span class="p">,</span>
+    <span class="na">formButton</span><span class="p">:</span> <span class="s1">'#0fc306'</span><span class="p">,</span>
+    <span class="na">formPlaceholder</span><span class="p">:</span> <span class="s1">'#949595'</span><span class="p">,</span>
+    <span class="na">textPrimary</span><span class="p">:</span> <span class="s1">'#ffffff'</span><span class="p">,</span>
+    <span class="na">textError</span><span class="p">:</span> <span class="s1">'#ffffff'</span><span class="p">,</span>
+    <span class="na">textTime</span><span class="p">:</span> <span class="s1">'#b5b7b8'</span><span class="p">,</span>
+    <span class="na">textTimeSeparator</span><span class="p">:</span> <span class="s1">'#8e9192'</span><span class="p">,</span>
+    <span class="na">textUserMessage</span><span class="p">:</span> <span class="s1">'#ffffff'</span><span class="p">,</span>
+    <span class="na">textFormInput</span><span class="p">:</span> <span class="s1">'#000000'</span><span class="p">,</span>
+    <span class="na">textFormTitle</span><span class="p">:</span> <span class="s1">'#8e9192'</span><span class="p">,</span>
+    <span class="na">textFormButton</span><span class="p">:</span> <span class="s1">'#ffffff'</span><span class="p">,</span>
+  <span class="p">}</span>
+<span class="p">};</span>
+<span class="kd">var</span> <span class="nx">_sz</span><span class="o">=</span><span class="nx">_sz</span><span class="o">||</span><span class="p">{};</span><span class="nx">_sz</span><span class="p">.</span><span class="nx">appId</span><span class="o">=</span><span class="s2">"YOUR_APP_ID"</span><span class="p">,</span><span class="kd">function</span><span class="p">(){</span><span class="kd">var</span> <span class="nx">e</span><span class="o">=</span><span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s2">"script"</span><span class="p">);</span><span class="nx">e</span><span class="p">.</span><span class="nx">src</span><span class="o">=</span><span class="s2">"https://cdn.signalzen.com/signalzen.js"</span><span class="p">,</span><span class="nx">e</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="s2">"async"</span><span class="p">,</span><span class="s2">"true"</span><span class="p">),</span><span class="nb">document</span><span class="p">.</span><span class="nx">documentElement</span><span class="p">.</span><span class="nx">firstChild</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">e</span><span class="p">);</span><span class="kd">var</span> <span class="nx">t</span><span class="o">=</span><span class="nx">setInterval</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span><span class="s2">"undefined"</span><span class="o">!=</span><span class="k">typeof</span> <span class="nx">SignalZen</span><span class="o">&amp;&amp;</span><span class="p">(</span><span class="nx">clearInterval</span><span class="p">(</span><span class="nx">t</span><span class="p">),</span><span class="k">new</span> <span class="nx">SignalZen</span><span class="p">(</span><span class="nx">_sz</span><span class="p">).</span><span class="nx">load</span><span class="p">())},</span><span class="mi">10</span><span class="p">)}();</span>
+<span class="o">&lt;</span><span class="sr">/script</span><span class="err">&gt;
+</span></code></pre>
+<p>You might not like the default color palette of the widget, so you can configure it yourself by a big variety of settings which are self explanatory and you can experiment with the colors of your choice. See the code example on the right how to do this.</p>
+<h2 id='invisibility'>Invisibility</h2><pre class="highlight javascript tab-javascript"><code><span class="o">&lt;</span><span class="nx">script</span> <span class="nx">type</span><span class="o">=</span><span class="s2">"text/javascript"</span><span class="o">&gt;</span>
+<span class="kd">var</span> <span class="nx">_sz</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">invisible</span><span class="p">:</span> <span class="kc">true</span>
+<span class="p">};</span>
+<span class="kd">var</span> <span class="nx">_sz</span><span class="o">=</span><span class="nx">_sz</span><span class="o">||</span><span class="p">{};</span><span class="nx">_sz</span><span class="p">.</span><span class="nx">appId</span><span class="o">=</span><span class="s2">"YOUR_APP_ID"</span><span class="p">,</span><span class="kd">function</span><span class="p">(){</span><span class="kd">var</span> <span class="nx">e</span><span class="o">=</span><span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s2">"script"</span><span class="p">);</span><span class="nx">e</span><span class="p">.</span><span class="nx">src</span><span class="o">=</span><span class="s2">"https://cdn.signalzen.com/signalzen.js"</span><span class="p">,</span><span class="nx">e</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="s2">"async"</span><span class="p">,</span><span class="s2">"true"</span><span class="p">),</span><span class="nb">document</span><span class="p">.</span><span class="nx">documentElement</span><span class="p">.</span><span class="nx">firstChild</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">e</span><span class="p">);</span><span class="kd">var</span> <span class="nx">t</span><span class="o">=</span><span class="nx">setInterval</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span><span class="s2">"undefined"</span><span class="o">!=</span><span class="k">typeof</span> <span class="nx">SignalZen</span><span class="o">&amp;&amp;</span><span class="p">(</span><span class="nx">clearInterval</span><span class="p">(</span><span class="nx">t</span><span class="p">),</span><span class="k">new</span> <span class="nx">SignalZen</span><span class="p">(</span><span class="nx">_sz</span><span class="p">).</span><span class="nx">load</span><span class="p">())},</span><span class="mi">10</span><span class="p">)}();</span>
+<span class="o">&lt;</span><span class="sr">/script</span><span class="err">&gt;
+</span></code></pre>
+<p>Depending on your needs, you can start the widget in invisibility mode, which means that all the widget will be hidden until the point you decide differently. See the code example on the right how to start the widget invisible.</p>
+
+<p>In order to make the widget visible, just call <code>SignalZen.show()</code> or <code>SignalZen.hide()</code> if you want to hide it again.</p>
+<h2 id='expand-and-suspend'>Expand and Suspend</h2>
+<p>The command <code>SignalZen.expand()</code> will open the widget chat window instead of showing just the chat circle with the chat icon.
+The command <code>SignalZen.suspend()</code> will minimise the chat window to display only chat circle with the chat icon.</p>
+<h2 id='events'>Events</h2>
+<p>We support multiple events that come with metadata about each of them. This could be used for an advanced integration if you want to know in your JavaScript implementation when the chat is opened, a message is received or sent. Let&#39;s start with the events list and wrap up with a single example how to catch an event.</p>
+<h3 id='signalzen-collapse'>signalzen.collapse</h3>
+<p>This event is called when the chat is expanded or suspended and by capturing it, you can get an object with key <code>status</code> which will return the action nature. Currently, the status value can be <code>opened</code> or <code>closed</code>.</p>
+<h3 id='signalzen-messagereceived'>signalzen.messageReceived</h3>
+<p>This event is called when a visitor receives a chat message not depending on the message nature, it means it can be even an auto invitation message. The event metadata contains message information which you can check yourself while dealing with the implementation.</p>
+<h3 id='signalzen-messagesent'>signalzen.messageSent</h3>
+<p>This event is called when a visitor sends a chat message. The event metadata contains message information which you can check yourself while dealing with the implementation.</p>
+<h3 id='real-world-example'>Real world example</h3><pre class="highlight javascript tab-javascript"><code><span class="nb">window</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">'signalzen.collapse'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">detail</span><span class="p">.</span><span class="nx">status</span> <span class="o">===</span> <span class="s1">'opened'</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">alert</span><span class="p">(</span><span class="s1">'The chat is opened!'</span><span class="p">);</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="nx">alert</span><span class="p">(</span><span class="s1">'The chat is closed!'</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">},</span> <span class="kc">false</span><span class="p">);</span>
+</code></pre>
+<p>Let&#39;s say you have a webpage where you need to react somehow when the widget collapse event happens. In this case, you need to put an event listener in your code and wait for the event to happen. Once the event happens, you can execute appropriate your own JS code. See the example on the right of this page. Be aware, that the metadata is contained in the listener function argument, under the <code>.detail</code> scope.</p>
 <h1 id='authentication'>Authentication</h1>
 <blockquote>
 <p>To authorize, use this code:</p>
@@ -284,7 +399,7 @@ curl <span class="s2">"https://api.signalzen.com/external/users"</span> <span cl
 <p>Make sure to replace <code>YOUR_API_SECRET</code> with your API secret key.</p>
 </blockquote>
 
-<p>SignalZen uses API Secret Keys to allow access to the API. You can register a new API Secret Key for your website at our <a href="https://portal.signalzen.com/sign-up">sign up page</a>.</p>
+<p>SignalZen uses API Secret Keys to allow access to the Backend API. You can register a new API Secret Key for your website at our <a href="https://portal.signalzen.com/sign-up">sign up page</a>.</p>
 
 <p>SignalZen expects for the API Secret Key to be included in all API requests to the server in a header that looks like the following:</p>
 
