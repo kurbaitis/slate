@@ -4,7 +4,6 @@ title: API Reference
 language_tabs: # must be one of https://git.io/vQNgJ
   - shell
   - ruby
-
 toc_footers:
   - <a href='https://portal.signalzen.com/sign-up' target='_blank'>Sign Up for your API Secret Key</a>
 
@@ -16,10 +15,122 @@ search: true
 
 # Introduction
 
-Welcome to the SignalZen API! You can use our API to access SignalZen API endpoints, which can get read-only information about your widget users and messages. This is a version number 1 of the API, later we will add more endpoints to make your API experience wider.
+Welcome to the SignalZen API! You can use our Frontend (JavaScript) API to do advanced integration on your website or use backend API to access SignalZen API endpoints, which can get read-only information about your widget users and messages. This page includes a version number 1 Frontend (JavaScript) API and a version number 1 of the Backend API, later we will add more endpoints to make your API experience wider.
 
-We have language bindings in Shell and Ruby! You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.
+You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.
 
+# JS API
+```javascript
+<script type="text/javascript">
+var _sz=_sz||{};_sz.appId="YOUR_APP_ID",function(){var e=document.createElement("script");e.src="https://cdn.signalzen.com/signalzen.js",e.setAttribute("async","true"),document.documentElement.firstChild.appendChild(e);var t=setInterval(function(){"undefined"!=typeof SignalZen&&(clearInterval(t),new SignalZen(_sz).load())},10)}();
+</script>
+```
+As stated in the Integration page of your website inside the portal, you need to initialize our widget by a simple command which looks like on the right side of this page.
+
+
+However, there are more advanced options to initialize and work with the widget. We separated the concerns of working with the widget into a few sections (see below).
+
+## Language
+```javascript
+<script type="text/javascript">
+var _sz = {
+  language: 'danish'
+};
+var _sz=_sz||{};_sz.appId="YOUR_APP_ID",function(){var e=document.createElement("script");e.src="https://cdn.signalzen.com/signalzen.js",e.setAttribute("async","true"),document.documentElement.firstChild.appendChild(e);var t=setInterval(function(){"undefined"!=typeof SignalZen&&(clearInterval(t),new SignalZen(_sz).load())},10)}();
+</script>
+```
+Usually by creating translations of the widget, we determine the language that the visitors see by their browser settings.
+There is an alternative way for this purpose, you can set the language by the integration code which takes precedence over the browser language. See the code example on the right how to do this.
+
+## Metadata about a visitor
+```javascript
+<script type="text/javascript">
+var _sz = {
+  userData: {
+    reference: "your-visitor-user-id",
+    email: 'your-visitor@email.com',
+    name: 'Your visitor name',
+    'some custom attribute': 'your visitor custom attribute'
+  }
+};
+var _sz=_sz||{};_sz.appId="YOUR_APP_ID",function(){var e=document.createElement("script");e.src="https://cdn.signalzen.com/signalzen.js",e.setAttribute("async","true"),document.documentElement.firstChild.appendChild(e);var t=setInterval(function(){"undefined"!=typeof SignalZen&&(clearInterval(t),new SignalZen(_sz).load())},10)}();
+</script>
+```
+Some websites have login area, where you have certain context which you want to be visible in a chat page in order to recognise the chat owner in more comfortable way. It's possible to set that data by JS configuration and send each time the chat owner sends a message. See the code example on the right how to do this.
+## Widget colors
+```javascript
+<script type="text/javascript">
+var _sz = {
+  colors: {
+    primary: '#046ee5',
+    secondary: '#f5f7f8',
+    footer: '#ffffff',
+    error: '#cccccc',
+    popup: '#ffffff',
+    popupClose: '#ffffff',
+    popupCloseSymbol: '#9c9c9c',
+    popupFormInputBorder: '#9c9c9c',
+    badge: '#c30606',
+    footerEmojisPopup: '#ffffff',
+    footerOptions: '#b2b3b4',
+    operatorMessages: '#ebeff0',
+    formInput: '#ffffff',
+    formInputBorder: '#ffffff',
+    formButton: '#0fc306',
+    formPlaceholder: '#949595',
+    textPrimary: '#ffffff',
+    textError: '#ffffff',
+    textTime: '#b5b7b8',
+    textTimeSeparator: '#8e9192',
+    textUserMessage: '#ffffff',
+    textFormInput: '#000000',
+    textFormTitle: '#8e9192',
+    textFormButton: '#ffffff',
+  }
+};
+var _sz=_sz||{};_sz.appId="YOUR_APP_ID",function(){var e=document.createElement("script");e.src="https://cdn.signalzen.com/signalzen.js",e.setAttribute("async","true"),document.documentElement.firstChild.appendChild(e);var t=setInterval(function(){"undefined"!=typeof SignalZen&&(clearInterval(t),new SignalZen(_sz).load())},10)}();
+</script>
+```
+You might not like the default color palette of the widget, so you can configure it yourself by a big variety of settings which are self explanatory and you can experiment with the colors of your choice. See the code example on the right how to do this.
+## Invisibility
+```javascript
+<script type="text/javascript">
+var _sz = {
+  invisible: true
+};
+var _sz=_sz||{};_sz.appId="YOUR_APP_ID",function(){var e=document.createElement("script");e.src="https://cdn.signalzen.com/signalzen.js",e.setAttribute("async","true"),document.documentElement.firstChild.appendChild(e);var t=setInterval(function(){"undefined"!=typeof SignalZen&&(clearInterval(t),new SignalZen(_sz).load())},10)}();
+</script>
+```
+Depending on your needs, you can start the widget in invisibility mode, which means that all the widget will be hidden until the point you decide differently. See the code example on the right how to start the widget invisible.
+
+In order to make the widget visible, just call `SignalZen.show()` or `SignalZen.hide()` if you want to hide it again.
+
+## Expand and Suspend
+The command `SignalZen.expand()` will open the widget chat window instead of showing just the chat circle with the chat icon.
+The command `SignalZen.suspend()` will minimise the chat window to display only chat circle with the chat icon.
+## Events
+We support multiple events that come with metadata about each of them. This could be used for an advanced integration if you want to know in your JavaScript implementation when the chat is opened, a message is received or sent. Let's start with the events list and wrap up with a single example how to catch an event.
+
+### signalzen.collapse
+This event is called when the chat is expanded or suspended and by capturing it, you can get an object with key `status` which will return the action nature. Currently, the status value can be `opened` or `closed`.
+
+### signalzen.messageReceived
+This event is called when a visitor receives a chat message not depending on the message nature, it means it can be even an auto invitation message. The event metadata contains message information which you can check yourself while dealing with the implementation.
+
+### signalzen.messageSent
+This event is called when a visitor sends a chat message. The event metadata contains message information which you can check yourself while dealing with the implementation.
+
+### Real world example
+```javascript
+window.addEventListener('signalzen.collapse', function (e) {
+  if (e.detail.status === 'opened') {
+    alert('The chat is opened!');
+  } else {
+    alert('The chat is closed!');
+  }
+}, false);
+```
+Let's say you have a webpage where you need to react somehow when the widget collapse event happens. In this case, you need to put an event listener in your code and wait for the event to happen. Once the event happens, you can execute appropriate your own JS code. See the example on the right of this page. Be aware, that the metadata is contained in the listener function argument, under the `.detail` scope.
 # Authentication
 
 > To authorize, use this code:
@@ -43,7 +154,7 @@ curl "https://api.signalzen.com/external/users" \
 
 > Make sure to replace `YOUR_API_SECRET` with your API secret key.
 
-SignalZen uses API Secret Keys to allow access to the API. You can register a new API Secret Key for your website at our [sign up page](https://portal.signalzen.com/sign-up).
+SignalZen uses API Secret Keys to allow access to the Backend API. You can register a new API Secret Key for your website at our [sign up page](https://portal.signalzen.com/sign-up).
 
 SignalZen expects for the API Secret Key to be included in all API requests to the server in a header that looks like the following:
 
