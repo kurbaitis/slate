@@ -105,6 +105,24 @@ Depending on your needs, you can start the widget in invisibility mode, which me
 
 In order to make the widget visible, just call `SignalZen.show()` or `SignalZen.hide()` if you want to hide it again.
 
+## Positioning
+```javascript
+<script type="text/javascript">
+var _sz = {
+  layout: {
+    horizontalOffset: 100, // Allows to tune the position your chat box to right or left in pixels
+    verticalOffset: 100, // Allows to tune the position your chat box to top or bottom in pixels
+    horizontalPosition: 'left', // Possible values: 'left', 'right'
+    verticalPosition: 'top', // Possible values: 'top', 'bottom'
+  }
+};
+var _sz=_sz||{};_sz.appId="YOUR_APP_ID",function(){var e=document.createElement("script");e.src="https://cdn.signalzen.com/signalzen.js",e.setAttribute("async","true"),document.documentElement.firstChild.appendChild(e);var t=setInterval(function(){"undefined"!=typeof SignalZen&&(clearInterval(t),new SignalZen(_sz).load())},10)}();
+</script>
+```
+Depending on your needs, you can change position of the chat widget trigger button and chat box.
+
+Just add the `layout` options that should be sufficient to position SignalZen widget at the right part of your website.
+
 ## Expand and Suspend
 The command `SignalZen.expand()` will open the widget chat window instead of showing just the chat circle with the chat icon.
 The command `SignalZen.suspend()` will minimise the chat window to display only chat circle with the chat icon.
