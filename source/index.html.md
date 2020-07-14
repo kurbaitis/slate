@@ -123,6 +123,23 @@ Depending on your needs, you can change position of the chat widget trigger butt
 
 Just add the `layout` options that should be sufficient to position SignalZen widget at the right part of your website.
 
+## CSS for trigger button
+```html
+<style>
+// Changing the size of the button:
+#signalzen_widget__root a {
+  width: 50px !important;
+  height: 50px !important;
+}
+</style>
+<script type="text/javascript">
+var _sz=_sz||{};_sz.appId="YOUR_APP_ID",function(){var e=document.createElement("script");e.src="https://cdn.signalzen.com/signalzen.js",e.setAttribute("async","true"),document.documentElement.firstChild.appendChild(e);var t=setInterval(function(){"undefined"!=typeof SignalZen&&(clearInterval(t),new SignalZen(_sz).load())},10)}();
+</script>
+```
+Sometimes you may want to change the widget trigger button CSS. You can do that by using `#signalzen_widget__root a` CSS selector.
+
+Please don't forget to use `!important` declaration for each of your new style settings.
+
 ## Expand and Suspend
 The command `SignalZen.expand()` will open the widget chat window instead of showing just the chat circle with the chat icon.
 The command `SignalZen.suspend()` will minimise the chat window to display only chat circle with the chat icon.
