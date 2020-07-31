@@ -166,6 +166,29 @@ window.addEventListener('signalzen.collapse', function (e) {
 }, false);
 ```
 Let's say you have a webpage where you need to react somehow when the widget collapse event happens. In this case, you need to put an event listener in your code and wait for the event to happen. Once the event happens, you can execute appropriate your own JS code. See the example on the right of this page. Be aware, that the metadata is contained in the listener function argument, under the `.detail` scope.
+## Troubleshooting
+Please don't hesitate to contact us directly, but before doing that, take a look to these mostly common questions.
+
+### 1. The widget icon stucks at the loading state forever.
+Double check if your integration code is placed correctly according to our guidance in the Integration Wizard page.
+It might be that our integration implementation is conflicting with your other JavaScript libraries used in your website.
+The best known case is Pace library which is incompatible with our service, so if you have it or other libraries dependent on it installed, please add this (right side of the screen) before SignalZen integration snippet in your webpage:
+
+```html
+<script type="text/javascript">
+  window.paceOptions = {
+    ajax: {
+      trackWebSockets: false,
+      ignoreURLs: [/signalzen/]
+    }
+  };
+</script>
+```
+### 2. I enabled "Ask visitors for email and name before displaying live chat" but can't see the form in the widget.
+Sometimes our clients put the code from "Additional customisation" section of this guide into webpages and use "name" and "email" variables as in the code snippet.
+This means that you preset the name and email instead allowing for your visitors to fill in by themselves.
+To avoid that, please don't use "name" and "email" variable names in the "Additional customisation" code section.
+
 # Authentication
 
 > To authorize, use this code:
