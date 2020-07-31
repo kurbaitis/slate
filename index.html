@@ -251,6 +251,9 @@
                   <li>
                     <a href="#events" class="toc-h2 toc-link" data-title="events">Events</a>
                   </li>
+                  <li>
+                    <a href="#troubleshooting" class="toc-h2 toc-link" data-title="troubleshooting">Troubleshooting</a>
+                  </li>
               </ul>
           </li>
           <li>
@@ -414,6 +417,24 @@ The command <code>SignalZen.suspend()</code> will minimise the chat window to di
 <span class="p">},</span> <span class="kc">false</span><span class="p">);</span>
 </code></pre>
 <p>Let&#39;s say you have a webpage where you need to react somehow when the widget collapse event happens. In this case, you need to put an event listener in your code and wait for the event to happen. Once the event happens, you can execute appropriate your own JS code. See the example on the right of this page. Be aware, that the metadata is contained in the listener function argument, under the <code>.detail</code> scope.</p>
+<h2 id='troubleshooting'>Troubleshooting</h2>
+<p>Please don&#39;t hesitate to contact us directly, but before doing that, take a look to these mostly common questions.</p>
+<h3 id='1-the-widget-icon-stucks-at-the-loading-state-forever'>1. The widget icon stucks at the loading state forever.</h3>
+<p>Double check if your integration code is placed correctly according to our guidance in the Integration Wizard page.
+It might be that our integration implementation is conflicting with your other JavaScript libraries used in your website.
+The best known case is Pace library which is incompatible with our service, so if you have it or other libraries dependent on it installed, please add this (right side of the screen) before SignalZen integration snippet in your webpage:</p>
+<pre class="highlight html tab-html"><code><span class="nt">&lt;script </span><span class="na">type=</span><span class="s">"text/javascript"</span><span class="nt">&gt;</span>
+  <span class="nb">window</span><span class="p">.</span><span class="nx">paceOptions</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="na">ajax</span><span class="p">:</span> <span class="p">{</span>
+      <span class="na">trackWebSockets</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+      <span class="na">ignoreURLs</span><span class="p">:</span> <span class="p">[</span><span class="sr">/signalzen/</span><span class="p">]</span>
+    <span class="p">}</span>
+  <span class="p">};</span>
+<span class="nt">&lt;/script&gt;</span>
+</code></pre><h3 id='2-i-enabled-quot-ask-visitors-for-email-and-name-before-displaying-live-chat-quot-but-can-39-t-see-the-form-in-the-widget'>2. I enabled &quot;Ask visitors for email and name before displaying live chat&quot; but can&#39;t see the form in the widget.</h3>
+<p>Sometimes our clients put the code from &quot;Additional customisation&quot; section of this guide into webpages and use &quot;name&quot; and &quot;email&quot; variables as in the code snippet.
+This means that you preset the name and email instead allowing for your visitors to fill in by themselves.
+To avoid that, please don&#39;t use &quot;name&quot; and &quot;email&quot; variable names in the &quot;Additional customisation&quot; code section.</p>
 <h1 id='authentication'>Authentication</h1>
 <blockquote>
 <p>To authorize, use this code:</p>
