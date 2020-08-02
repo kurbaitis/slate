@@ -240,6 +240,9 @@
                     <a href="#invisibility" class="toc-h2 toc-link" data-title="invisibility">Invisibility</a>
                   </li>
                   <li>
+                    <a href="#hiding-on-mobile" class="toc-h2 toc-link" data-title="hiding-on-mobile">Hiding on mobile</a>
+                  </li>
+                  <li>
                     <a href="#positioning" class="toc-h2 toc-link" data-title="positioning">Positioning</a>
                   </li>
                   <li>
@@ -368,6 +371,15 @@ There is an alternative way for this purpose, you can set the language by the in
 <p>Depending on your needs, you can start the widget in invisibility mode, which means that all the widget will be hidden until the point you decide differently. See the code example on the right how to start the widget invisible.</p>
 
 <p>In order to make the widget visible, just call <code>SignalZen.show()</code> or <code>SignalZen.hide()</code> if you want to hide it again.</p>
+<h2 id='hiding-on-mobile'>Hiding on mobile</h2><pre class="highlight javascript tab-javascript"><code><span class="o">&lt;</span><span class="nx">script</span> <span class="nx">type</span><span class="o">=</span><span class="s2">"text/javascript"</span><span class="o">&gt;</span>
+<span class="kd">var</span> <span class="nx">_sz</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">hideOnMobile</span><span class="p">:</span> <span class="kc">true</span>
+<span class="p">};</span>
+<span class="kd">var</span> <span class="nx">_sz</span><span class="o">=</span><span class="nx">_sz</span><span class="o">||</span><span class="p">{};</span><span class="nx">_sz</span><span class="p">.</span><span class="nx">appId</span><span class="o">=</span><span class="s2">"YOUR_APP_ID"</span><span class="p">,</span><span class="kd">function</span><span class="p">(){</span><span class="kd">var</span> <span class="nx">e</span><span class="o">=</span><span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s2">"script"</span><span class="p">);</span><span class="nx">e</span><span class="p">.</span><span class="nx">src</span><span class="o">=</span><span class="s2">"https://cdn.signalzen.com/signalzen.js"</span><span class="p">,</span><span class="nx">e</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="s2">"async"</span><span class="p">,</span><span class="s2">"true"</span><span class="p">),</span><span class="nb">document</span><span class="p">.</span><span class="nx">documentElement</span><span class="p">.</span><span class="nx">firstChild</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">e</span><span class="p">);</span><span class="kd">var</span> <span class="nx">t</span><span class="o">=</span><span class="nx">setInterval</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span><span class="s2">"undefined"</span><span class="o">!=</span><span class="k">typeof</span> <span class="nx">SignalZen</span><span class="o">&amp;&amp;</span><span class="p">(</span><span class="nx">clearInterval</span><span class="p">(</span><span class="nx">t</span><span class="p">),</span><span class="k">new</span> <span class="nx">SignalZen</span><span class="p">(</span><span class="nx">_sz</span><span class="p">).</span><span class="nx">load</span><span class="p">())},</span><span class="mi">10</span><span class="p">)}();</span>
+<span class="o">&lt;</span><span class="sr">/script</span><span class="err">&gt;
+</span></code></pre>
+<p>You may want to disable your chat widget on mobile devices in order not to make your webpage too stuffy.
+Achieving that is simple as a flag to pass into the widget&#39;s initialization options.</p>
 <h2 id='positioning'>Positioning</h2><pre class="highlight javascript tab-javascript"><code><span class="o">&lt;</span><span class="nx">script</span> <span class="nx">type</span><span class="o">=</span><span class="s2">"text/javascript"</span><span class="o">&gt;</span>
 <span class="kd">var</span> <span class="nx">_sz</span> <span class="o">=</span> <span class="p">{</span>
   <span class="na">layout</span><span class="p">:</span> <span class="p">{</span>
