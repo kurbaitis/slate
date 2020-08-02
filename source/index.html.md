@@ -105,6 +105,18 @@ Depending on your needs, you can start the widget in invisibility mode, which me
 
 In order to make the widget visible, just call `SignalZen.show()` or `SignalZen.hide()` if you want to hide it again.
 
+## Hiding on mobile
+```javascript
+<script type="text/javascript">
+var _sz = {
+  hideOnMobile: true
+};
+var _sz=_sz||{};_sz.appId="YOUR_APP_ID",function(){var e=document.createElement("script");e.src="https://cdn.signalzen.com/signalzen.js",e.setAttribute("async","true"),document.documentElement.firstChild.appendChild(e);var t=setInterval(function(){"undefined"!=typeof SignalZen&&(clearInterval(t),new SignalZen(_sz).load())},10)}();
+</script>
+```
+You may want to disable your chat widget on mobile devices in order not to make your webpage too stuffy.
+Achieving that is simple as a flag to pass into the widget's initialization options.
+
 ## Positioning
 ```javascript
 <script type="text/javascript">
