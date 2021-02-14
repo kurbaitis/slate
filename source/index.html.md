@@ -167,6 +167,9 @@ This event is called when a visitor receives a chat message not depending on the
 ### signalzen.messageSent
 This event is called when a visitor sends a chat message. The event metadata contains message information which you can check yourself while dealing with the implementation.
 
+### signalzen.chatStarted
+This event is called when a visitor is created on our system, just after the first message. The event metadata contains user information which you can check yourself while dealing with the implementation.
+
 ### Real world example
 ```javascript
 window.addEventListener('signalzen.collapse', function (e) {
