@@ -420,6 +420,8 @@ The command <code>SignalZen.suspend()</code> will minimise the chat window to di
 <p>This event is called when a visitor receives a chat message not depending on the message nature, it means it can be even an auto invitation message. The event metadata contains message information which you can check yourself while dealing with the implementation.</p>
 <h3 id='signalzen-messagesent'>signalzen.messageSent</h3>
 <p>This event is called when a visitor sends a chat message. The event metadata contains message information which you can check yourself while dealing with the implementation.</p>
+<h3 id='signalzen-chatstarted'>signalzen.chatStarted</h3>
+<p>This event is called when a visitor is created on our system, just after the first message. The event metadata contains user information which you can check yourself while dealing with the implementation.</p>
 <h3 id='real-world-example'>Real world example</h3><pre class="highlight javascript tab-javascript"><code><span class="nb">window</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">'signalzen.collapse'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
   <span class="k">if</span> <span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">detail</span><span class="p">.</span><span class="nx">status</span> <span class="o">===</span> <span class="s1">'opened'</span><span class="p">)</span> <span class="p">{</span>
     <span class="nx">alert</span><span class="p">(</span><span class="s1">'The chat is opened!'</span><span class="p">);</span>
